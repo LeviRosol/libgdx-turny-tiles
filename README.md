@@ -9,4 +9,4 @@ Game structure wise, all levels are contained within a single TMX file. The file
 
 * The TMX map is 10x10
 * Tiles are 32x32
-* Currently compiles for Android and Desktop
+* Currently compiles and runs on Android and Desktop
