@@ -6,14 +6,14 @@
  <tileset firstgid="17" name="shapes" tilewidth="32" tileheight="32" tilecount="16">
   <image source="shapes.png" trans="ff00ff" width="512" height="32"/>
  </tileset>
- <layer name="Level 1" width="10" height="10" visible="0">
-  <data encoding="base64" compression="zlib">
-   eJxjYBg6QAaJLYFHnTQSW5xGbqEVAABSZABn
-  </data>
- </layer>
  <layer name="Level 0" width="10" height="10" visible="0">
   <data encoding="base64" compression="zlib">
    eJxjYBh+QAYHGx1I42APJAAAR1QAbw==
+  </data>
+ </layer>
+ <layer name="Level 1" width="10" height="10" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJxjYBg6QAaJLYFHnTQSW5xGbqEVAABSZABn
   </data>
  </layer>
  <layer name="Level 2" width="10" height="10" visible="0">
@@ -56,7 +56,7 @@
    eJxjYBhaQIZIdUJALAXEkjjkxYBYFIgFiTRPmkh1lAIAeDQAuQ==
   </data>
  </layer>
- <layer name="Level 10" width="10" height="10">
+ <layer name="Level 10" width="10" height="10" visible="0">
   <data encoding="base64" compression="zlib">
    eJxjYKAfkANiWRziIkAsiSQmT6SZgkSqEyLDPJi7hJFoURLNUyBSHQwAABQDAY0=
   </data>

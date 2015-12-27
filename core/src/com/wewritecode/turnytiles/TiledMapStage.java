@@ -23,16 +23,18 @@ public class TiledMapStage extends Stage {
         tiledMap = new TmxMapLoader().load(tmx_file);
         renderer = new OrthogonalTiledMapRenderer(tiledMap, 1f / 32f);
 
-        for(int i = 0; i < tiledMap.getLayers().getCount(); i++){
-            TiledMapTileLayer tiledLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Level " + i);
+//        for(int i = 0; i < tiledMap.getLayers().getCount(); i++){
+//            TiledMapTileLayer tiledLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Level " + i);
 
-            if(i == current_level) {
+        TiledMapTileLayer tiledLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Level 0");
+
+//        if(i == current_level) {
                 createActorsForLayer(tiledLayer);
                 tiledLayer.setVisible(true);
-            }else{
-                tiledLayer.setVisible(false);
-            }
-        }
+//            }else{
+//                tiledLayer.setVisible(false);
+//            }
+//        }
     }
 
     private void createActorsForLayer(TiledMapTileLayer tiledLayer) {
@@ -45,8 +47,6 @@ public class TiledMapStage extends Stage {
                     actor.setBounds(x, y, 1, 1); // instead of using the tile height/width, we use 1 because the camera is set to a scale of 32 already.
                     addActor(actor);
                     EventListener eventListener = new TiledMapClickListener(actor);
-
-
                     actor.addListener(eventListener);
                 }
             }
@@ -67,18 +67,18 @@ public class TiledMapStage extends Stage {
     }
 
     public void setCurrent_level(int level){
-        current_level = level;
-
-        for(int i = 0; i < tiledMap.getLayers().getCount(); i++){
-            final TiledMapTileLayer tiledLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Level " + i);
-
-            if(i == current_level) {
-                createActorsForLayer(tiledLayer);
-                tiledLayer.setVisible(true);
-            }else{
-                tiledLayer.setVisible(false);
-            }
-        }
+//        current_level = level;
+//
+//        for(int i = 0; i < tiledMap.getLayers().getCount(); i++){
+//            final TiledMapTileLayer tiledLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Level " + i);
+//
+//            if(i == current_level) {
+//                createActorsForLayer(tiledLayer);
+//                tiledLayer.setVisible(true);
+//            }else{
+//                tiledLayer.setVisible(false);
+//            }
+//        }
 
     }
 
