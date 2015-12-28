@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class Game extends ApplicationAdapter {
     private OrthographicCamera camera;
@@ -19,9 +20,8 @@ public class Game extends ApplicationAdapter {
 
         _world = new World();
         _world.setGame(this);
-//        _world.setStage(new Surface());
         _world.loadLevels("level_1.tmx");
-//        _world.setCurrentLevel(_world.createLevel("grass", true));
+        _world.setCurrentLevel(0);
         _world.setDebug(true);
 
         float w = Gdx.graphics.getWidth();
@@ -38,19 +38,28 @@ public class Game extends ApplicationAdapter {
 //        Gdx.input.setInputProcessor(stage);
 
         _world.getStage().getViewport().setCamera(camera);
+        SetViewport(1.0f);
+    }
+
+    public void SetViewport(float zoom) {
+        ScreenViewport screenViewport = new ScreenViewport(_world.getStage().getCamera());
+        screenViewport.setUnitsPerPixel(zoom);
+        _world.getStage().setViewport(screenViewport);
+        resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
 	@Override
 	public void render () {
-        Gdx.gl.glClearColor(240 / 255f, 248 / 255f, 255 / 255f, 1f);
+        Gdx.gl.glClearColor(50 / 255f, 50 / 255f, 50 / 255f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         camera.update();
         _world.getStage().getTiledMapRenderer().setView(camera);
         _world.getStage().getTiledMapRenderer().render();
+        _world.getStage().draw();
         batch.begin();
         font.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 10, 20);
         batch.end();
-        _world.getStage().act();
+//        _world.getStage().act();
     }
 
     @Override

@@ -6,9 +6,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -22,13 +20,13 @@ public class World{
     private TiledMap tiledMap;
     private TiledMapRenderer renderer;
     private BaseStage _stage;
-    private ArrayList<Level> _levels;
+    private Level[] _levels;
     private Level _currentLevel;
+    private int _level_number;
     private Label _label;
     private boolean _inDebug = false;
     private Game _game;
     {
-        _levels = new ArrayList<Level>();
     }
 
     public void setStage(BaseStage stage) {
@@ -58,13 +56,21 @@ public class World{
 
 //        level.setGrid(new Grid(level, 30, 30, tileType));
 
-        _levels.add(level);
+//        _levels.add(level);
 
         return level;
     }
 
-    public void setCurrentLevel(Level currentLevel) {
-        _currentLevel = currentLevel;
+    public void setCurrentLevel(int level) {
+        _level_number = level;
+        _currentLevel = _levels[_level_number];
+
+        TiledMap tiledMap = new TiledMap();
+        OrthogonalTiledMapRenderer renderer = new OrthogonalTiledMapRenderer(tiledMap, 1);
+
+        TileStage stage = new TileStage(tiledMap, renderer);
+        stage.addActor(_currentLevel.getLayer());
+        setStage(stage);
 
         BuildDebugLayer();
 
@@ -94,16 +100,16 @@ public class World{
         return tiledMap;
     }
 
-    public ArrayList<Level> getLevels(){
-        return _levels;
-    }
+//    public ArrayList<Level> getLevels(){
+//        return _levels;
+//    }
 
     public Level getLevelByNumber(int number){
-        for (int y = 0; y < _levels.size(); y++) {
-            if (_levels.get(y).getNumber() == number){
-                return _levels.get(y);
-            }
-        }
+//        for (int y = 0; y < _levels.size(); y++) {
+//            if (_levels.get(y).getNumber() == number){
+//                return _levels.get(y);
+//            }
+//        }
         return null;
     }
 
@@ -123,12 +129,14 @@ public class World{
         tiledMap = new TmxMapLoader().load(tmx_file);
         renderer = new OrthogonalTiledMapRenderer(tiledMap, 1f / 32f);
 
+        _levels = new Level[tiledMap.getLayers().getCount()];
+
         for(int i = 0; i < tiledMap.getLayers().getCount(); i++) {
             TiledMapTileLayer tiledLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Level " + i);
             Level level = new Level(this);
             level.createActorsForLayer(tiledLayer);
-            TileStage stage = new TileStage(tiledMap, renderer);
-            setStage(stage);
+            level.setDebug(true);
+            _levels[i] = level;
         }
     }
 }

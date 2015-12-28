@@ -8,8 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class Tile extends BaseActor {
 
     public Tile (Texture texture){
-        super();
         _texture = texture;
-        setBounds(getX(), getY(), _texture.getWidth(), _texture.getHeight());
+        setBounds(0, 0, 32, 32);
     }
 }
